@@ -616,7 +616,7 @@ END:VCARD`
 .element {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(45deg, #07e262, #05f569);
   opacity: 0.1;
   animation: float 6s ease-in-out infinite;
 }

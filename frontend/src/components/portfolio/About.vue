@@ -32,11 +32,13 @@
         <div class="image-column" ref="imageColumn">
           <div class="image-container animate-fade-in-right" style="animation-delay: 0.6s">
             <div class="image-wrapper">
-              <img 
-                :src="image" 
-                alt="Your Name - Developer" 
-                class="about-image"
-              />
+              <div class="image-circle">
+                <img 
+                  :src="image" 
+                  alt="Your Name - Developer" 
+                  class="about-image"
+                />
+              </div>
               <div class="image-glow"></div>
               
               <!-- Floating Elements Around Image -->
@@ -215,7 +217,7 @@ const ExperienceIcon = {
 const ClientIcon = {
   template: `
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
     </svg>
   `
 }
@@ -383,7 +385,7 @@ export default {
 .element-1 {
   width: 300px;
   height: 300px;
-  background: #6366f1;
+  background: #e6e6e9;
   top: 10%;
   left: 5%;
   animation-delay: 0s;
@@ -401,7 +403,7 @@ export default {
 .element-3 {
   width: 150px;
   height: 150px;
-  background: #8b5cf6;
+  background: #e3e1e7;
   top: 50%;
   left: 80%;
   animation-delay: 4s;
@@ -515,23 +517,35 @@ export default {
   position: relative;
   width: 400px;
   height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Circular Image Styles */
+.image-circle {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
+  border: 4px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.4);
+  transition: all 0.3s ease;
 }
 
 .about-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
-  position: relative;
-  z-index: 1;
-  border: 2px solid rgba(99, 102, 241, 0.3);
-  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.4);
   transition: all 0.3s ease;
 }
 
-.about-image:hover {
-  transform: scale(1.02);
+.image-circle:hover {
+  transform: scale(1.05);
   box-shadow: 0 35px 60px -12px rgba(99, 102, 241, 0.6);
+  border-color: rgba(99, 102, 241, 0.5);
 }
 
 .image-glow {
@@ -539,10 +553,10 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 420px;
-  height: 520px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  border-radius: 30px;
+  width: 380px;
+  height: 380px;
+  background: linear-gradient(135deg, #e3e3e7, #edecee);
+  border-radius: 50%;
   filter: blur(20px);
   opacity: 0.3;
   z-index: 0;
@@ -563,7 +577,7 @@ export default {
   position: absolute;
   width: 60px;
   height: 60px;
-  background: rgba(99, 102, 241, 0.9);
+  background: rgba(7, 230, 174, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -576,20 +590,20 @@ export default {
 }
 
 .element-1 {
-  top: -20px;
-  right: -20px;
+  top: 20px;
+  right: 20px;
   animation-delay: 0s;
 }
 
 .element-2 {
-  bottom: 40px;
-  left: -30px;
+  bottom: 80px;
+  left: 20px;
   animation-delay: 2s;
 }
 
 .element-3 {
-  bottom: -20px;
-  right: 40px;
+  bottom: 20px;
+  right: 80px;
   animation-delay: 4s;
 }
 
@@ -602,7 +616,7 @@ export default {
 /* Experience Badge */
 .experience-badge {
   position: absolute;
-  bottom: -20px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -1068,9 +1082,14 @@ export default {
     height: 450px;
   }
 
+  .image-circle {
+    width: 300px;
+    height: 300px;
+  }
+
   .image-glow {
-    width: 370px;
-    height: 470px;
+    width: 330px;
+    height: 330px;
   }
 
   .stats-grid {
@@ -1092,9 +1111,14 @@ export default {
     height: 400px;
   }
 
+  .image-circle {
+    width: 250px;
+    height: 250px;
+  }
+
   .image-glow {
-    width: 320px;
-    height: 420px;
+    width: 280px;
+    height: 280px;
   }
 
   .floating-element {
@@ -1124,9 +1148,14 @@ export default {
     height: 350px;
   }
 
+  .image-circle {
+    width: 220px;
+    height: 220px;
+  }
+
   .image-glow {
-    width: 300px;
-    height: 370px;
+    width: 250px;
+    height: 250px;
   }
 
   .experience-badge {
