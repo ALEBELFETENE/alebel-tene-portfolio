@@ -1,20 +1,13 @@
 <template>
   <LayoutHeader />
   <section class="projects-section" id="projects" ref="projectsSection">
-    <!-- Enhanced Background -->
+    <!-- Clean Background -->
     <div class="projects-background">
-      <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-      </div>
       <div class="gradient-overlay"></div>
-      <div class="code-grid"></div>
     </div>
 
     <div class="container">
-      <!-- Enhanced Section Header -->
+      <!-- Clean Section Header -->
       <div class="section-header" ref="sectionHeader">
         <div class="section-badge animate-fade-in">
           <span class="badge-icon">🚀</span>
@@ -28,7 +21,7 @@
         </p>
       </div>
 
-      <!-- Enhanced Project Filters -->
+      <!-- Clean Project Filters -->
       <div class="project-filters animate-fade-in-up" style="animation-delay: 0.6s" ref="projectFilters">
         <button
           v-for="filter in filters"
@@ -44,7 +37,7 @@
         </button>
       </div>
 
-      <!-- Enhanced Projects Grid -->
+      <!-- Clean Projects Grid -->
       <div class="projects-grid" ref="projectsGrid">
         <div
           v-for="(project, index) in filteredProjects"
@@ -52,12 +45,8 @@
           class="project-card-wrapper"
           :style="`animation-delay: ${0.8 + index * 0.1}s`"
         >
-          <div 
-            class="project-card group"
-            @mouseenter="hoveredProject = project.id"
-            @mouseleave="hoveredProject = null"
-          >
-            <!-- Project Image with Enhanced Overlay -->
+          <div class="project-card">
+            <!-- Project Image -->
             <div class="project-image-container">
               <div class="image-wrapper">
                 <img
@@ -66,60 +55,17 @@
                   class="project-image"
                   @error="handleImageError"
                 />
-                <div class="image-gradient"></div>
+                <div class="image-overlay"></div>
               </div>
               
-              <div class="image-overlay">
-                <div class="project-meta">
-                  <div class="meta-item">
-                    <CalendarIcon class="meta-icon" />
-                    <span>{{ project.duration }}</span>
-                  </div>
-                  <div class="meta-item">
-                    <CodeIcon class="meta-icon" />
-                    <span>{{ project.linesOfCode }}</span>
-                  </div>
-                </div>
-                
-                <div class="project-links">
-                  <a
-                    v-if="project.demoUrl"
-                    :href="project.demoUrl"
-                    target="_blank"
-                    class="project-link demo-link"
-                    @click.stop
-                  >
-                    <ExternalLinkIcon class="link-icon" />
-                    <span>Live Demo</span>
-                  </a>
-                  <a
-                    v-if="project.githubUrl"
-                    :href="project.githubUrl"
-                    target="_blank"
-                    class="project-link github-link"
-                    @click.stop
-                  >
-                    <GithubIcon class="link-icon" />
-                    <span>Source Code</span>
-                  </a>
-                  <button
-                    class="project-link details-link"
-                    @click.stop="$emit('view-details', project)"
-                  >
-                    <EyeIcon class="link-icon" />
-                    <span>Case Study</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Enhanced Project Badge -->
+              <!-- Project Badge -->
               <div class="project-badge" :class="project.category.toLowerCase()">
                 <div class="badge-dot"></div>
                 {{ project.category }}
               </div>
             </div>
 
-            <!-- Enhanced Project Content -->
+            <!-- Project Content -->
             <div class="project-content">
               <div class="project-header">
                 <h3 class="project-title">{{ project.title }}</h3>
@@ -132,7 +78,7 @@
               
               <p class="project-description">{{ project.description }}</p>
 
-              <!-- Enhanced Tech Stack -->
+              <!-- Tech Stack -->
               <div class="project-tech">
                 <div
                   v-for="tech in project.technologies"
@@ -144,50 +90,62 @@
                 </div>
               </div>
 
-              <!-- Enhanced Project Stats -->
+              <!-- Project Stats -->
               <div class="project-stats">
                 <div class="stat">
                   <div class="stat-icon-wrapper">
-                    <FeatureIcon class="stat-icon" />
+                    <CalendarIcon class="stat-icon" />
                   </div>
                   <div class="stat-content">
-                    <div class="stat-number">{{ project.features }}+</div>
-                    <div class="stat-label">Features</div>
+                    <div class="stat-label">Duration</div>
+                    <div class="stat-number">{{ project.duration }}</div>
                   </div>
                 </div>
                 <div class="stat">
                   <div class="stat-icon-wrapper">
-                    <CodeBracketIcon class="stat-icon" />
+                    <CodeIcon class="stat-icon" />
                   </div>
                   <div class="stat-content">
-                    <div class="stat-number">{{ project.linesOfCode }}</div>
                     <div class="stat-label">Lines of Code</div>
+                    <div class="stat-number">{{ project.linesOfCode }}</div>
                   </div>
                 </div>
               </div>
 
-              <!-- Project Progress (if applicable) -->
-              <div class="project-progress" v-if="project.progress">
-                <div class="progress-header">
-                  <span class="progress-label">Project Completion</span>
-                  <span class="progress-percentage">{{ project.progress }}%</span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-fill" :style="`width: ${project.progress}%`"></div>
-                </div>
+              <!-- Project Links -->
+              <div class="project-links">
+                <a
+                  v-if="project.demoUrl"
+                  :href="project.demoUrl"
+                  target="_blank"
+                  class="project-link demo-link"
+                >
+                  <ExternalLinkIcon class="link-icon" />
+                  <span>Live Demo</span>
+                </a>
+                <a
+                  v-if="project.githubUrl"
+                  :href="project.githubUrl"
+                  target="_blank"
+                  class="project-link github-link"
+                >
+                  <GithubIcon class="link-icon" />
+                  <span>Source Code</span>
+                </a>
+                <button
+                  class="project-link details-link"
+                  @click="$emit('view-details', project)"
+                >
+                  <EyeIcon class="link-icon" />
+                  <span>Case Study</span>
+                </button>
               </div>
             </div>
-
-            <!-- Enhanced Project Glow -->
-            <div class="project-glow" :class="`glow-${index % 3}`"></div>
-            
-            <!-- Project Hover Effect -->
-            <div class="project-hover-effect"></div>
           </div>
         </div>
       </div>
 
-      <!-- Enhanced View More Section -->
+      <!-- View More Section -->
       <div class="view-more-section animate-fade-in-up" style="animation-delay: 1.2s" v-if="showViewMore">
         <div class="view-more-content">
           <div class="view-more-text">
@@ -197,7 +155,7 @@
           <UiButton 
             variant="gradient" 
             size="large"
-            class="view-more-btn group"
+            class="view-more-btn"
             @click="$emit('view-all')"
           >
             <span class="btn-content">
@@ -218,7 +176,7 @@ import UiButton from '@/components/ui/Button.vue'
 import LayoutHeader from '@/components/Layout/Header.vue'
 import LayoutFooter from '@/components/Layout/Footer.vue'
 
-// Enhanced SVG Icons
+// Clean SVG Icons
 const ExternalLinkIcon = {
   template: `
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -260,22 +218,6 @@ const CodeIcon = {
   `
 }
 
-const FeatureIcon = {
-  template: `
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-  `
-}
-
-const CodeBracketIcon = {
-  template: `
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
-    </svg>
-  `
-}
-
 const HeartIcon = {
   template: `
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -303,8 +245,6 @@ export default {
     EyeIcon,
     CalendarIcon,
     CodeIcon,
-    FeatureIcon,
-    CodeBracketIcon,
     HeartIcon,
     ArrowRightIcon
   },
@@ -383,7 +323,6 @@ export default {
     const projectsGrid = ref(null)
     
     const activeFilter = ref('All')
-    const hoveredProject = ref(null)
     const showViewMore = ref(true)
 
     const filters = ['All', 'Fullstack', 'Frontend', 'Backend', 'Mobile']
@@ -429,7 +368,6 @@ export default {
       projectFilters,
       projectsGrid,
       activeFilter,
-      hoveredProject,
       showViewMore,
       filters,
       filteredProjects,
@@ -476,77 +414,17 @@ export default {
   background: var(--background);
 }
 
-/* Enhanced Background */
+/* Clean Background */
 .projects-background {
   position: absolute;
   inset: 0;
   z-index: -1;
 }
 
-.floating-shapes {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.08;
-  animation: float 12s ease-in-out infinite;
-}
-
-.shape-1 {
-  width: 300px;
-  height: 300px;
-  background: var(--primary);
-  top: 10%;
-  left: 5%;
-  animation-delay: 0s;
-}
-
-.shape-2 {
-  width: 250px;
-  height: 250px;
-  background: var(--secondary);
-  top: 60%;
-  right: 10%;
-  animation-delay: 3s;
-}
-
-.shape-3 {
-  width: 280px;
-  height: 280px;
-  background: var(--accent);
-  bottom: 20%;
-  left: 15%;
-  animation-delay: 6s;
-}
-
-.shape-4 {
-  width: 200px;
-  height: 200px;
-  background: var(--info);
-  top: 30%;
-  right: 20%;
-  animation-delay: 9s;
-}
-
 .gradient-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 0%, var(--background) 70%);
-}
-
-.code-grid {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
 }
 
 .container {
@@ -555,7 +433,7 @@ export default {
   padding: 0 2rem;
 }
 
-/* Enhanced Section Header */
+/* Clean Section Header */
 .section-header {
   text-align: center;
   margin-bottom: 80px;
@@ -571,7 +449,6 @@ export default {
   border-radius: 50px;
   margin-bottom: 2rem;
   backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
 }
 
 .badge-icon {
@@ -599,7 +476,6 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  position: relative;
 }
 
 .section-subtitle {
@@ -611,7 +487,7 @@ export default {
   font-weight: 400;
 }
 
-/* Enhanced Project Filters */
+/* Clean Project Filters */
 .project-filters {
   display: flex;
   justify-content: center;
@@ -628,7 +504,7 @@ export default {
   border: 1px solid var(--border);
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   font-weight: 500;
   color: var(--text-secondary);
   display: flex;
@@ -637,17 +513,14 @@ export default {
 }
 
 .filter-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(30, 41, 59, 0.9);
   color: var(--primary-light);
   border-color: var(--primary-light);
-  background: rgba(30, 41, 59, 0.9);
 }
 
 .filter-btn.active {
   background: var(--gradient-primary);
   color: var(--text-primary);
-  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
   border-color: transparent;
 }
 
@@ -659,7 +532,7 @@ export default {
   font-weight: 600;
 }
 
-/* Enhanced Projects Grid */
+/* Clean Projects Grid */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
@@ -668,35 +541,33 @@ export default {
 }
 
 .project-card-wrapper {
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInUp 0.8s ease forwards;
   opacity: 0;
 }
 
 .project-card {
   position: relative;
   background: var(--surface);
-  backdrop-filter: blur(20px);
   border: 1px solid var(--border);
-  border-radius: 24px;
+  border-radius: 16px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .project-card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
-  border-color: var(--primary-light);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
 }
 
-/* Enhanced Project Image */
+/* Clean Project Image */
 .project-image-container {
   position: relative;
   overflow: hidden;
-  height: 280px;
+  height: 240px;
   flex-shrink: 0;
 }
 
@@ -710,102 +581,23 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.image-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 0%, rgba(15, 23, 42, 0.8) 100%);
-  opacity: 0.7;
-}
-
-.project-card:hover .project-image {
-  transform: scale(1.1);
 }
 
 .image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.95));
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2rem;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(to bottom, transparent 0%, rgba(15, 23, 42, 0.3) 100%);
 }
 
-.project-card:hover .image-overlay {
-  opacity: 1;
-}
-
-.project-meta {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-primary);
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.meta-icon {
-  width: 1rem;
-  height: 1rem;
-  color: var(--primary-light);
-}
-
-.project-links {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.project-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--surface);
-  font-weight: 600;
-  font-size: 0.875rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-}
-
-.project-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-.demo-link:hover { background: var(--primary); color: white; }
-.github-link:hover { background: var(--surface); color: white; }
-.details-link:hover { background: var(--secondary); color: white; }
-
-.link-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-/* Enhanced Project Badge */
+/* Clean Project Badge */
 .project-badge {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 20px;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   backdrop-filter: blur(20px);
@@ -813,7 +605,6 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .badge-dot {
@@ -821,29 +612,24 @@ export default {
   height: 6px;
   border-radius: 50%;
   background: currentColor;
-  animation: pulse 2s infinite;
 }
 
 .project-badge.fullstack { 
   background: var(--gradient-primary);
-  border: 1px solid rgba(99, 102, 241, 0.3);
 }
 .project-badge.frontend { 
   background: var(--gradient-secondary);
-  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 .project-badge.backend { 
   background: linear-gradient(135deg, var(--accent), var(--warning));
-  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 .project-badge.mobile { 
   background: linear-gradient(135deg, var(--info), var(--primary));
-  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
-/* Enhanced Project Content */
+/* Clean Project Content */
 .project-content {
-  padding: 2.5rem;
+  padding: 2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -884,7 +670,6 @@ export default {
   background: var(--primary);
   border-color: var(--primary);
   color: white;
-  transform: scale(1.1);
 }
 
 .action-icon {
@@ -899,17 +684,17 @@ export default {
 
 .project-description {
   color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 2rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
   flex: 1;
 }
 
-/* Enhanced Tech Stack */
+/* Clean Tech Stack */
 .project-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .tech-tag {
@@ -918,18 +703,11 @@ export default {
   gap: 0.5rem;
   background: rgba(99, 102, 241, 0.1);
   color: var(--primary-light);
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
   font-size: 0.875rem;
   font-weight: 500;
   border: 1px solid rgba(99, 102, 241, 0.2);
-  transition: all 0.3s ease;
-}
-
-.tech-tag:hover {
-  transform: translateY(-1px);
-  background: rgba(99, 102, 241, 0.2);
-  box-shadow: 0 5px 15px rgba(99, 102, 241, 0.2);
 }
 
 .tech-dot {
@@ -939,35 +717,29 @@ export default {
   background: var(--primary-light);
 }
 
-/* Enhanced Project Stats */
+/* Clean Project Stats */
 .project-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .stat {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.25rem;
+  gap: 0.75rem;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  transition: all 0.3s ease;
-}
-
-.stat:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
 }
 
 .stat-icon-wrapper {
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background: var(--gradient-primary);
-  border-radius: 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -975,8 +747,8 @@ export default {
 }
 
 .stat-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   color: white;
 }
 
@@ -986,93 +758,61 @@ export default {
 }
 
 .stat-number {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
 }
 
 .stat-label {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   font-weight: 500;
 }
 
-/* Project Progress */
-.project-progress {
+/* Clean Project Links */
+.project-links {
+  display: flex;
+  gap: 0.75rem;
   margin-top: auto;
 }
 
-.progress-header {
+.project-link {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.progress-label {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.progress-percentage {
-  font-size: 0.875rem;
-  color: var(--primary-light);
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--surface);
   font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex: 1;
+  justify-content: center;
 }
 
-.progress-bar {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  overflow: hidden;
+.project-link:hover {
+  transform: translateY(-1px);
 }
 
-.progress-fill {
-  height: 100%;
-  background: var(--gradient-primary);
-  border-radius: 3px;
-  transition: width 1s ease-in-out;
+.demo-link { background: var(--primary); color: white; }
+.github-link { background: var(--surface); color: white; border: 1px solid var(--border); }
+.details-link { background: var(--secondary); color: white; }
+
+.github-link:hover { background: var(--surface-light); }
+.demo-link:hover { background: var(--primary-dark); }
+.details-link:hover { background: var(--secondary-light); }
+
+.link-icon {
+  width: 1rem;
+  height: 1rem;
 }
 
-/* Enhanced Project Glow */
-.project-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  filter: blur(30px);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: -1;
-}
-
-.project-card:hover .project-glow {
-  opacity: 0.4;
-}
-
-.glow-0 { background: var(--gradient-primary); }
-.glow-1 { background: var(--gradient-secondary); }
-.glow-2 { background: linear-gradient(135deg, var(--accent), var(--primary)); }
-
-/* Project Hover Effect */
-.project-hover-effect {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: 24px;
-}
-
-.project-card:hover .project-hover-effect {
-  opacity: 1;
-}
-
-/* Enhanced View More Section */
+/* Clean View More Section */
 .view-more-section {
   text-align: center;
   padding: 4rem 0;
@@ -1107,14 +847,12 @@ export default {
   padding: 1.25rem 3rem;
   font-size: 1.125rem;
   font-weight: 600;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
 .view-more-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 30px 60px rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
 }
 
 .btn-content {
@@ -1124,20 +862,20 @@ export default {
 }
 
 .btn-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   transition: transform 0.3s ease;
 }
 
 .view-more-btn:hover .btn-icon {
-  transform: translateX(8px);
+  transform: translateX(4px);
 }
 
-/* Enhanced Animations */
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -1145,33 +883,12 @@ export default {
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-20px) rotate(120deg);
-  }
-  66% {
-    transform: translateY(10px) rotate(240deg);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
 .animate-fade-in {
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInUp 0.8s ease forwards;
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInUp 0.8s ease forwards;
   opacity: 0;
 }
 
@@ -1218,7 +935,6 @@ export default {
 
   .project-links {
     flex-direction: column;
-    gap: 0.75rem;
   }
 
   .project-stats {
@@ -1248,11 +964,11 @@ export default {
   }
 
   .project-content {
-    padding: 2rem;
+    padding: 1.5rem;
   }
 
   .project-image-container {
-    height: 240px;
+    height: 200px;
   }
 
   .project-filters {
